@@ -416,18 +416,6 @@ restTemplate.put(url, updateData);
 | 服务通信 | 本地调用 | HTTP/RPC |
 | 数据库 | 共享 | 独立 |
 
-## 贡献者
-
-- 王振宇 (wzy) - Initial work
-
-## 许可证
-
-本项目为教学项目，仅供学习使用。
-
-## 联系方式
-
-如有问题，请联系：wzy@zjgsu.edu.cn
-
 ## 思考题
 
 1. **如果 catalog-service 宕机，enrollment-service 会如何？如何提高可用性？**
