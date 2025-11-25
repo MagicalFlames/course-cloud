@@ -1,0 +1,92 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: gateway-service
+
+  cloud:
+    nacos:
+      discovery:
+        enabled: false
+        server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
+        username: nacos
+        password: nacos
+        fail-fast: false
+        retry:
+          initial-interval: 1000
+          max-attempts: 10
+          multiplier: 2
+
+    gateway:
+      # 路由配置
+      routes:
+        # 用户服务路由
+        - id: user-service
+          uri: http://user-service:8083
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - StripPrefix=1
+
+        # 认证服务路由（白名单，不需要JWT）
+        - id: auth-service
+          uri: http://user-service:8083
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - StripPrefix=1
+
+        # 课程目录服务路由
+        - id: catalog-service
+          uri: http://catalog-service-1:8081
+          predicates:
+            - Path=/api/catalog/**
+          filters:
+            - StripPrefix=1
+
+        # 选课服务路由
+        - id: enrollment-service
+          uri: http://enrollment-service:8082
+          predicates:
+            - Path=/api/enrollment/**
+          filters:
+            - StripPrefix=1
+
+      # CORS 跨域配置
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins: "*"
+            allowed-methods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowed-headers: "*"
+            allow-credentials: false
+            max-age: 3600
+
+# JWT configuration
+jwt:
+  secret: yourSecretKeyForJwtTokenGenerationMustBeAtLeast256BitsLongToEnsureSecurityHS512Algorithm
+  expiration: 86400000  # 24 hours in milliseconds
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway
+  endpoint:
+    health:
+      show-details: always
+    gateway:
+      enabled: true
+
+logging:
+  level:
+    com.zjgsu.wzy.gateway: DEBUG
+    org.springframework.cloud.gateway: INFO
+    org.springframework.web: INFO
