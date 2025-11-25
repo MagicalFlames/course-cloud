@@ -1,0 +1,12 @@
+com/zjgsu/wzy/catalog/model/Instructor.class
+com/zjgsu/wzy/catalog/model/Course.class
+com/zjgsu/wzy/catalog/exception/GlobalExceptionHandler.class
+com/zjgsu/wzy/catalog/exception/BusinessException.class
+com/zjgsu/wzy/catalog/controller/CourseController.class
+com/zjgsu/wzy/catalog/service/CourseService.class
+com/zjgsu/wzy/catalog/repository/CourseRepository.class
+com/zjgsu/wzy/catalog/model/ScheduleSlot.class
+com/zjgsu/wzy/catalog/CatalogServiceApplication.class
+com/zjgsu/wzy/catalog/common/ApiResponse.class
+com/zjgsu/wzy/catalog/config/OpenApiConfig.class
+com/zjgsu/wzy/catalog/exception/ResourceNotFoundException.class

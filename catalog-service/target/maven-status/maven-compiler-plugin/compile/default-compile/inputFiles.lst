@@ -1,0 +1,12 @@
+/home/shuanglin/course-cloud/catalog-service/src/main/java/com/zjgsu/wzy/catalog/CatalogServiceApplication.java
+/home/shuanglin/course-cloud/catalog-service/src/main/java/com/zjgsu/wzy/catalog/common/ApiResponse.java
+/home/shuanglin/course-cloud/catalog-service/src/main/java/com/zjgsu/wzy/catalog/config/OpenApiConfig.java
+/home/shuanglin/course-cloud/catalog-service/src/main/java/com/zjgsu/wzy/catalog/controller/CourseController.java
+/home/shuanglin/course-cloud/catalog-service/src/main/java/com/zjgsu/wzy/catalog/exception/BusinessException.java
+/home/shuanglin/course-cloud/catalog-service/src/main/java/com/zjgsu/wzy/catalog/exception/GlobalExceptionHandler.java
+/home/shuanglin/course-cloud/catalog-service/src/main/java/com/zjgsu/wzy/catalog/exception/ResourceNotFoundException.java
+/home/shuanglin/course-cloud/catalog-service/src/main/java/com/zjgsu/wzy/catalog/model/Course.java
+/home/shuanglin/course-cloud/catalog-service/src/main/java/com/zjgsu/wzy/catalog/model/Instructor.java
+/home/shuanglin/course-cloud/catalog-service/src/main/java/com/zjgsu/wzy/catalog/model/ScheduleSlot.java
+/home/shuanglin/course-cloud/catalog-service/src/main/java/com/zjgsu/wzy/catalog/repository/CourseRepository.java
+/home/shuanglin/course-cloud/catalog-service/src/main/java/com/zjgsu/wzy/catalog/service/CourseService.java

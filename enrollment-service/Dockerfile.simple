@@ -1,0 +1,17 @@
+# 直接使用已构建的 JAR 文件
+FROM eclipse-temurin:17-jre-alpine
+WORKDIR /app
+
+# 创建非 root 用户
+RUN addgroup -S spring && adduser -S spring -G spring
+USER spring:spring
+
+# 复制已构建的 JAR 文件
+COPY target/enrollment-service.jar app.jar
+
+# 配置 JVM 参数
+ENV JAVA_OPTS="-Xmx512m -Xms256m"
+
+EXPOSE 8082
+
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
