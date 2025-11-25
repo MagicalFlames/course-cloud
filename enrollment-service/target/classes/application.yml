@@ -32,16 +32,55 @@ spring:
 catalog-service:
   url: ${CATALOG_SERVICE_URL:http://localhost:8081}
 
+# Feign 配置
+feign:
+  circuitbreaker:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 3000
+        readTimeout: 5000
+        loggerLevel: FULL
+
+# Resilience4j 熔断器配置
+resilience4j:
+  circuitbreaker:
+    instances:
+      catalog-service:
+        # 滑动窗口大小（基于请求次数）
+        slidingWindowSize: 10
+        # 最小调用次数（达到这个次数后才开始计算失败率）
+        minimumNumberOfCalls: 5
+        # 失败率阈值（50%）
+        failureRateThreshold: 50
+        # 慢调用时长阈值（毫秒）
+        slowCallDurationThreshold: 5000
+        # 慢调用率阈值
+        slowCallRateThreshold: 50
+        # 等待时长（熔断器打开后等待多久尝试半开状态）
+        waitDurationInOpenState: 10s
+        # 半开状态下的请求数
+        permittedNumberOfCallsInHalfOpenState: 3
+        # 滑动窗口类型：COUNT_BASED（基于次数）或 TIME_BASED（基于时间）
+        slidingWindowType: COUNT_BASED
+        # 自动从半开状态转换到打开或关闭状态
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+
 logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    com.zjgsu.wzy.enrollment.client: DEBUG
 
 management:
   endpoints:
     web:
       exposure:
-        include: health,info,nacos-discovery
+        include: health,info,nacos-discovery,circuitbreakers,circuitbreakerevents
   endpoint:
     health:
       show-details: always
+  health:
+    circuitbreakers:
+      enabled: true

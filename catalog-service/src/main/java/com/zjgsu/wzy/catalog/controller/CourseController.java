@@ -6,7 +6,9 @@ import com.zjgsu.wzy.catalog.service.CourseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,8 +18,12 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/courses")
 @Tag(name = "课程管理", description = "课程目录服务的课程管理接口")
+@Slf4j
 public class CourseController {
     private final CourseService courseService;
+
+    @Value("${server.port:8081}")
+    private String serverPort;
 
     @Autowired
     public CourseController(CourseService courseService) {
@@ -38,14 +44,17 @@ public class CourseController {
     @Operation(summary = "根据ID获取课程", description = "通过课程ID获取课程详细信息")
     public ApiResponse getCourseById(
             @Parameter(description = "课程ID", required = true) @PathVariable String courseId) {
+        log.info("[catalog-service:{}] Received request to get course: {}", serverPort, courseId);
         Optional<Course> course = courseService.findById(courseId);
         if(course.isPresent()) {
+            log.info("[catalog-service:{}] Successfully found course: {}", serverPort, courseId);
             return new ApiResponse(true, Map.of(
                     "ok","查询成功",
                     "data", course.get()
             ));
         }
         else{
+            log.warn("[catalog-service:{}] Course not found: {}", serverPort, courseId);
             return new ApiResponse(false, Map.of(
                     "error","课程不存在"
             ));
